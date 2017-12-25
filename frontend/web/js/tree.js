@@ -4,8 +4,13 @@ $(function(){
     $("#tree").dynatree({
         children: treeData,
         onClick: function(node, e) {
-            selectedNode = node;
-            // console.log(node.data.key);
+            if (node) {
+                selectedNode = node;
+                $("#editNode, #deleteNode").removeAttr("disabled");
+                // console.log(node.data.key);
+            } else {
+                $("#editNode, #deleteNode").attr("disabled", "disabled");
+            }
         }
     });
     // Обработка редактирования поисковой строки
@@ -118,6 +123,7 @@ function searchSend(value) {
         $("#tree")
             .dynatree("option", "children", treeData)
             .dynatree("getTree").reload();
+        $("#editNode, #deleteNode").attr("disabled", "disabled");
     });
 }
 
@@ -133,6 +139,7 @@ function deleteNode(node) {
         dataType: 'JSON'
     }).done(function(res) {
         node.remove();
+        $("#editNode, #deleteNode").attr("disabled", "disabled");
     });
 }
 
