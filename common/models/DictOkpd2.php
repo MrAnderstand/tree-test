@@ -101,7 +101,7 @@ class DictOkpd2 extends \yii\db\ActiveRecord
                 WHERE (node.lft BETWEEN parent.lft AND parent.rgt)
                     AND node.rgt - node.lft = 1
                     AND parent.tree = node.tree
-                    AND (node.name LIKE '%$search%' OR node.name LIKE '%$search%')
+                    AND (node.code LIKE '%$search%' OR node.name LIKE '%$search%')
                 GROUP BY parent.id
                 ORDER BY parent.tree, parent.lft
             ")->queryAll();
