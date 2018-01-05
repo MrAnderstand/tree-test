@@ -109,7 +109,7 @@ class SiteController extends Controller
      */
     public function actionSearch()
     {
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             Yii::$app->db->enableLogging = false;
             Yii::$app->db->enableProfiling = false;
             
@@ -125,7 +125,7 @@ class SiteController extends Controller
      */
     public function actionAddSection()
     {
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             Yii::$app->db->enableLogging = false;
             Yii::$app->db->enableProfiling = false;
             
@@ -154,7 +154,7 @@ class SiteController extends Controller
      */
     public function actionAddNode()
     {
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             Yii::$app->db->enableLogging = false;
             Yii::$app->db->enableProfiling = false;
             
@@ -185,7 +185,7 @@ class SiteController extends Controller
      */
     public function actionEditNode()
     {
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             Yii::$app->db->enableLogging = false;
             Yii::$app->db->enableProfiling = false;
             
@@ -223,7 +223,7 @@ class SiteController extends Controller
      */
     public function actionDeleteNode()
     {
-        if(Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax) {
             Yii::$app->db->enableLogging = false;
             Yii::$app->db->enableProfiling = false;
             
