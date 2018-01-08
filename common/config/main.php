@@ -3,7 +3,20 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            // 'class' => 'yii\caching\MemCache',
+            // 'useMemcached' => true,
+            // 'servers' => [
+            //     [
+            //         'host' => 'localhost',
+            //         'port' => 11211,
+            //     ]
+            // ],
+            'class' => 'yii\redis\Cache',
+            'redis' => [
+                'hostname' => 'localhost',
+                'port' => 6379,
+                'database' => 0,
+            ]
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -23,11 +36,5 @@ return [
                 ],
             ],
         ],
-    ],
-    'modules' => [
-        'treemanager' =>  [
-            'class' => '\kartik\tree\Module',
-            // other module settings, refer detailed documentation
-        ]
     ],
 ];

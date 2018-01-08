@@ -6,10 +6,10 @@ $(function(){
         onClick: function(node, e) {
             if (node) {
                 selectedNode = node;
-                $("#editNode, #deleteNode").removeAttr("disabled");
+                $(".btn-id").removeAttr("disabled");
                 // console.log(node.data.key);
             } else {
-                $("#editNode, #deleteNode").attr("disabled", "disabled");
+                $(".btn-id").attr("disabled", "disabled");
             }
         }
     });
@@ -123,7 +123,7 @@ function searchSend(value) {
         $("#tree")
             .dynatree("option", "children", treeData)
             .dynatree("getTree").reload();
-        $("#editNode, #deleteNode").attr("disabled", "disabled");
+        $(".btn-id").attr("disabled", "disabled");
     });
 }
 
@@ -139,7 +139,7 @@ function deleteNode(node) {
         dataType: 'JSON'
     }).done(function(res) {
         node.remove();
-        $("#editNode, #deleteNode").attr("disabled", "disabled");
+        $(".btn-id").attr("disabled", "disabled");
     });
 }
 

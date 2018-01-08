@@ -29,14 +29,16 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Тестовое задание ОКПД2',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => $this->title,
+        'brandUrl' => null,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Справочник ОКПД2', 'url' => ['/site/index']],
+        ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'Nested sets', 'url' => ['/nested-sets/index']],
+        ['label' => 'Pid + redis', 'url' => ['/pid/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];

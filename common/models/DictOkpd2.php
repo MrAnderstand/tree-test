@@ -86,22 +86,22 @@ class DictOkpd2 extends \yii\db\ActiveRecord
     }
     
     /**
-     * Получает данные дерева в виде nested set. Гораздо более оптимальный вариант
+     * Получает данные дерева в виде nested sets. Гораздо более оптимальный вариант
      * чем поиск средствами AR
      * @param  string $search Искомая строка
      */
-    public static function getBigNestedSetTree($search = null) {
+    private static function getTreeArray($search = null) {
+        $tableName = self::tableName();
         if (empty($search)) {
-            $treeData = \Yii::$app->db->createCommand('SELECT * FROM `dict_okpd2` ORDER BY `tree`, `lft`')->queryAll();
+            $treeData = \Yii::$app->db->createCommand("SELECT * FROM `$tableName` ORDER BY `tree`, `lft`")->queryAll();
         } else {
-            $treeData = \Yii::$app->db->createCommand("
-                SELECT parent.*
-                FROM dict_okpd2 AS node,
-                    dict_okpd2 AS parent
-                WHERE (node.lft BETWEEN parent.lft AND parent.rgt)
-                    AND node.rgt - node.lft = 1
-                    AND parent.tree = node.tree
-                    AND (node.code LIKE '%$search%' OR node.name LIKE '%$search%')
+            $treeData = \Yii::$app->db->createCommand("SELECT parent.*
+                FROM `$tableName` AS child,
+                    `$tableName` AS parent
+                WHERE (child.lft BETWEEN parent.lft AND parent.rgt)
+                    AND child.rgt - child.lft = 1
+                    AND parent.tree = child.tree
+                    AND (child.code LIKE '%$search%' OR child.name LIKE '%$search%')
                 GROUP BY parent.id
                 ORDER BY parent.tree, parent.lft
             ")->queryAll();
@@ -110,13 +110,14 @@ class DictOkpd2 extends \yii\db\ActiveRecord
     }
     
     /**
-     * Преобразует nested set дерево к обычному иерархическому массиву
-     * @param  array  $treeData     Nested set дерево
-     * @param  boolean $expand      Отображать раскрытыми или нет
+     * Преобразует nested set дерево к обычному иерархическому массиву, возвращая искомое дерево
+     * @param  string  $search     Искомая строка
+     * @param  boolean $expand     True, если папки в дереве должны быть открытыми
      */
-    public static function toTreeArray($treeData, $expand = false) {
+    public static function getSearchTree($search = null, $expand = false) {
         $stack = [];
         $arraySet = [];
+        $treeData = self::getTreeArray($search);
         foreach ($treeData as $intKey => $arrValues) {
             $stackSize = count($stack); //how many opened tags?
             while ($stackSize > 0 and ($stack[$stackSize-1]['rgt'] < $arrValues['lft'] or $arrValues['id'] == $arrValues['tree'])) {

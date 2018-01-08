@@ -14,6 +14,12 @@ $this->title = 'Админка';
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?= $form->field($model, 'file')->fileInput(); ?>
+    
+    <?= $form->field($model, 'tree_type')
+        ->radioList([
+            '1' => 'Nested sets',
+            '2' => 'Pid',
+        ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary', 'data' => [
